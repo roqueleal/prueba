@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111035186-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-111035186-2');
+</script>
+<!-- Hotjar Tracking Code for https://www.roqueleal.me/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1408742,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!-- BEGIN SHAREAHOLIC CODE -->
+<link rel='preload' href='//apps.shareaholic.com/assets/pub/shareaholic.js' as='script'/>
+<script data-cfasync="false" async src="//apps.shareaholic.com/assets/pub/shareaholic.js" data-shr-siteid="c808dbc8d6951e1d6bc8c470f396b47a"></script>
+<!-- END SHAREAHOLIC CODE -->
+<!-- meta -->
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Roque Leal</title>
+<meta content="" name="keywords">
+<meta content="" name="description">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">
+<!-- Bootstrap CSS File -->
+<link href="https://raw.githubusercontent.com/roqueleal/roqueleal.github.io/master/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Libraries CSS Files -->
+<link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+<link href="lib/hover/hover.min.css" rel="stylesheet">
+<!-- mapboxs -->
+<!-- mapbox-->
+<!-- Blog Stylesheet File -->
+<link href="css/blog.css" rel="stylesheet">
+<link href="css/mensajes.css" rel="stylesheet">
+<!-- Main Stylesheet File -->
+<link href="css/style.css" rel="stylesheet">
+<!-- Responsive css -->
+<link href="css/responsive.css" rel="stylesheet">
+<!-- Favicon -->
+<link rel="shortcut icon" href="images/logos.png">
+<!-- start section map -->
+<body>
+<style>
+    html, body, #map {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+</style>
+<link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css"/>
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
+  <![endif]-->
+<script type="sql/html" id="cartocss_template">
+    Map {
+      -torque-frame-count: 209;
+      -torque-animation-duration: 29;
+      -torque-time-attribute: "well_compl";
+      -torque-aggregation-function: "count(1)";
+      -torque-resolution: 10;
+      -torque-data-aggregation: linear;
+    }
+    #layer {
+      marker-width: 7;
+      marker-fill: #fff821;
+      marker-fill-opacity: 1;
+      marker-line-width: 0.01;
+      marker-line-color: #FFFFFF;
+      marker-line-opacity: 1;
+      comp-op: multiply;
+    }
+    #layer[frame-offset=1] {
+      marker-width: 9;
+      marker-fill-opacity: 0.5;
+    }
+    #layer[frame-offset=2] {
+      marker-width: 11;
+      marker-fill-opacity: 0.25;
+    }
+    #layer[frame-offset=3] {
+      marker-width: 13;
+      marker-fill-opacity: 0.16666666666666666;
+    }
+    #layer[frame-offset=4] {
+      marker-width: 15;
+      marker-fill-opacity: 0.125;
+    }
+        </script>
+</head>
+<body>
+<div id="map">
+</div>
+<!-- Legend -->
+<div class='cartodb-legend category'>
+	<ul>
+		<a style="margin:auto; text-align:center; display:block;">Evolución de las actividades de Perforación en Colombia desde 1900 al 2015</a>
+		<li>
+		<li>
+		Leyenda </li>
+		<li>
+		<div class="bullet" style="background: #fff821">
+		</div>
+		 Completación del Pozo </li>
+		<a href="http://www.anh.gov.co/Banco%20de%20informacion%20petrolera/EPIS/Paginas/Seleccion-de-datos(Original).aspx">Fuente: Agencia Nacional de Hidrocarburos Colombia</a>
+	</ul>
+</div>
+<!-- include cartodb.js library -->
+<script type="text/javascript" src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+<script>
+    function main() {
+      var map = new L.Map('map', {
+        center: [4, -72],
+        zoom: 5
+      });
+      var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',{
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OSM</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+      }).addTo(map); // base map
+      cartodb.createLayer(map, {
+        type: "torque",
+        order: 1,
+        options: {
+          // sql query that transform torque_cat values to torque_category ones [this time is redundant but quite useful in other cases]
+          query: "select * from pzos_colombia_2016 where well_compl  between '01/01/1900' and '12/31/2015' ",
+          table_name: "pzos_colombia_2016",
+          user_name: "vargasgarcia",
+          tile_style: $('#cartocss_template').html()
+          }
+      }).done(function(layer) {
+        map.addLayer(layer);
+      });   
+    }
+    // you could use $(window).load(main);
+    window.onload = main;
+  </script>
+</body>
+</html>
